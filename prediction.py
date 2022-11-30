@@ -89,15 +89,15 @@ class get_transformed_img(Dataset):
 
 def get_inference_transforms():
      return A.Compose([
-            A.Resize(CFG['img_size'], CFG['img_size']),
+#            A.Resize(CFG['img_size'], CFG['img_size']),
 #            A.CenterCrop(always_apply=True,p=1.0, height=CFG['img_size'], width=CFG['img_size']),
-            # A.RandomResizedCrop(
-            # height=CFG['img_size'], 
-            # width=CFG['img_size'], 
-            # scale=(0.56, 0.60),
-            # ratio=(1.00, 0.40),
-            # always_apply=True
-            # ),
+            A.RandomResizedCrop(
+            height=CFG['img_size'], 
+            width=CFG['img_size'], 
+            scale=(0.66, 0.70),
+            ratio=(0.90, 1.10),
+            always_apply=True
+            ),
 #            A.Transpose(p=0.5),
 #            A.HorizontalFlip(p=0.5),
             A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0, p=1.0),
@@ -186,7 +186,7 @@ if __name__ == '__main__':
     
     ################## model init ########################
     device = torch.device(CFG['device'])
-    model = ColonImgClassifier(CFG['model'], 93).to(device)
+    model = ColonImgClassifier(CFG['model'], 95).to(device)
     if torch.cuda.device_count() > 1:
         model = nn.DataParallel(model)
     
