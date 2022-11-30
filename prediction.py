@@ -153,7 +153,7 @@ def inference(model, data_loader, device):
 
 ########################## main ##################################
 ##########################      ##################################
-model_dir = 'tf_efficientnet_b3_ns_HK/tf_efficientnet_b3_ns_38'
+model_dir = 'tf_efficientnet_b3_ns_HK/tf_efficientnet_b3_ns_37'
 
 if __name__ == '__main__':
     seed_everything(CFG['seed'])
