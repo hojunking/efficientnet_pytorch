@@ -89,12 +89,12 @@ class get_transformed_img(Dataset):
 
 def get_inference_transforms():
      return A.Compose([
-#            A.Resize(CFG['img_size'], CFG['img_size']),
+#            A.Resize(CFG['img_size']+200, CFG['img_size']+500),
 #            A.CenterCrop(always_apply=True,p=1.0, height=CFG['img_size'], width=CFG['img_size']),
             A.RandomResizedCrop(
             height=CFG['img_size'], 
             width=CFG['img_size'], 
-            scale=(0.66, 0.70),
+            scale=(0.56, 0.60),
             ratio=(0.90, 1.10),
             always_apply=True
             ),
@@ -153,7 +153,7 @@ def inference(model, data_loader, device):
 
 ########################## main ##################################
 ##########################      ##################################
-model_dir = 'tf_efficientnet_b3_ns_HK/tf_efficientnet_b3_ns_37'
+model_dir = 'tf_efficientnet_b3_ns_HK/tf_efficientnet_b3_ns_29'
 
 if __name__ == '__main__':
     seed_everything(CFG['seed'])
@@ -161,10 +161,9 @@ if __name__ == '__main__':
     arguments = sys.argv
     del arguments[0]
     
-    img_name = arguments
-    
+    #img_name = arguments
+    img_name = ['셀토스2021.jpg', 'niro2017.jpg', '싼타페2019.jpg', '그랜저2017.jpg', '투싼2018.jpg', '그랜저2019.jpg', '쏘나타2021.jpg', 'K32020.jpg', 'K52019.jpg', '팰리세이드2021.jpg', 'K92020.jpg', '레이2020.jpg', '모닝2017.jpg', '제네시스G702019.jpg', 'G702017.jpg', 'K52017.jpg', '카니발2019.jpg', '포터22017.jpg', '아반떼2021.jpg', 'K72018.jpg', '제네시스EQ9002018.jpg', '쏘나타2017.jpg', '싼타페2018.jpg', 'K32017.jpg', '스타렉스2018.jpg']
     print(img_name)
-    
     img_dir = CFG['img_dir']
     #path = img_dir + img_name
     
