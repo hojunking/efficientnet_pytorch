@@ -167,15 +167,12 @@ if __name__ == '__main__':
  'EQ900_2018.jpg',
  '그랜저_2019.jpg',
  'G70_2017.jpg',
+ '아반떼_2019.01.jpg',
  '카니발_2019.jpg',
  'K3_2017.jpg',
  'K3_2020.jpg',
- '아반떼_2019_01.jpg',
  'K5_2017.jpg',
- '모닝_2014_01.jpg',
- '모닝_2014_02.jpg',
- 'niro_2017.jpg',
- '모닝_2014_03.jpg',
+ '니로_2017.jpg',
  'K5_2019.jpg',
  '투싼_2018.jpg',
  '아반떼_2019.jpg',
@@ -184,7 +181,6 @@ if __name__ == '__main__':
  '팰리세이드_2021.jpg',
  '싼타페_2018.jpg',
  'G70_2019.jpg',
- '모닝_2014_04.jpg',
  '스타렉스_2018.jpg',
  '아반떼_2021.jpg',
  '싼타페_2019.jpg',
@@ -201,7 +197,10 @@ if __name__ == '__main__':
     
     infer = pd.DataFrame(columns = ['image_id'])
     infer['image_id'] = img_name
-    #print(infer)
+    
+    ############## for test accuracy #####################
+    infer['label'] = [i.replace('_','/').split('.',1)[0] for i in img_name]
+    
     
     ################## get img ###########################
     pred_ds = get_transformed_img(infer, img_dir, transforms=get_inference_transforms())
@@ -304,11 +303,31 @@ encoded_labels = ['기아/K3/2017', '기아/K3/2018', '기아/K3/2019', '기아/
 le = LabelEncoder()
 le.fit(encoded_labels)
 
-#print(predictions)
+pred_count = 0
+
 for i,pre in enumerate(predictions):
     top_3 = pre.argsort()[-3:][::-1]
     pred = le.inverse_transform(top_3)
-    print(f'top3:[{img_name[i]}] : {pred}')
+    pred = [p.split('/',1)[1] for p in pred]
+    
+    if any (infer['label'][i].split('/',1)[0] == pre_val.split('/',1)[0] for pre_val in pred):
+        pred_count = pred_count +1
+       # print('0')
+    label = infer['label'][i]
+    print(f'label:[{label}]  top3: {pred}')
+
+print(f'accuracy = {pred_count / len(infer)}')
+# top_3 = pre.argsort()[-3:][::-1]
+#     print(len(top_3))
+#     print(len(infer))
+#     infer['pred'] = le.inverse_transform(top_3)
+    
+#     infer['pred'] = [t_pred.split('/',1)[1] for t_pred in infer['pred']]
+#     print(infer['pred'])
+    
+#     print(f'top3:{infer.label} : {infer.pred}')
+#     print(f'accuracy = {np.sum(infer.label == infer.pred) / len(infer)}')
+
 
 # prediction = le.inverse_transform(top_3)
 # print(prediction)
