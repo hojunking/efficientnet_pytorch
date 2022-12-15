@@ -94,7 +94,7 @@ def get_inference_transforms():
             A.RandomResizedCrop(
             height=CFG['img_size'], 
             width=CFG['img_size'], 
-            scale=(0.64, 0.68),
+            scale=(4.80, 9.90),
             ratio=(0.90, 1.10),
             always_apply=True
             ),
