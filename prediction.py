@@ -37,8 +37,8 @@ os.environ['MASTER_PORT'] = '53097'         # 좀 큰 숫자로 맞추면 됨 �
 torch.distributed.init_process_group(backend='nccl', init_method="env://", rank =0, world_size=1)  # rank should be 0 ~ world_size-1
 
 CFG = {
-    'model': 'tf_efficientnet_b3_ns',
-    'img_size': 300,
+    'model': 'tf_efficientnet_b4_ns',
+    'img_size': 380,
     'bs': 16,
     'seed': 0,
     'device': 'cuda:0',
@@ -94,7 +94,7 @@ def get_inference_transforms():
             A.RandomResizedCrop(
             height=CFG['img_size'], 
             width=CFG['img_size'], 
-            scale=(0.56, 0.60),
+            scale=(0.64, 0.68),
             ratio=(0.90, 1.10),
             always_apply=True
             ),
@@ -153,7 +153,11 @@ def inference(model, data_loader, device):
 
 ########################## main ##################################
 ##########################      ##################################
-model_dir = 'tf_efficientnet_b3_ns_HK/tf_efficientnet_b3_ns_29'
+#model_dir = 'tf_efficientnet_b4_ns_ALL/tf_efficientnet_b4_ns_2'
+model_dir = 'models/1214'
+
+
+
 
 if __name__ == '__main__':
     seed_everything(CFG['seed'])
@@ -163,16 +167,20 @@ if __name__ == '__main__':
     
     #img_name = arguments
     img_name = ['모닝_2017.jpg',
+ 'K3_2021.jpg',
  'K9_2020.jpg',
+ '아반떼_2017.jpg',
  'EQ900_2018.jpg',
  '그랜저_2019.jpg',
  'G70_2017.jpg',
+ '니로_2017.jpg',
  '아반떼_2019.01.jpg',
  '카니발_2019.jpg',
  'K3_2017.jpg',
  'K3_2020.jpg',
+ 'K9_2019.jpg',
  'K5_2017.jpg',
- '니로_2017.jpg',
+ '스토닉_2018.jpg',
  'K5_2019.jpg',
  '투싼_2018.jpg',
  '아반떼_2019.jpg',
@@ -182,14 +190,23 @@ if __name__ == '__main__':
  '싼타페_2018.jpg',
  'G70_2019.jpg',
  '스타렉스_2018.jpg',
+ '스팅어_2019.jpg',
  '아반떼_2021.jpg',
+ '쏘나타_2018.jpg',
+ '스타렉스_2019.jpg',
+ 'G80_2021.jpg',
  '싼타페_2019.jpg',
  'K7_2018.jpg',
+ '쏘렌토_2017.jpg',
  '쏘나타_2017.jpg',
+ '모닝_2018.jpg',
+ '그랜저.2018.jpg',
+ '투싼_2020.jpg',
  '쏘나타_2021.jpg',
  '그랜저_2017.jpg',
+ '니로_2018.jpg',
  '포터2_2017.jpg']
-    print(img_name)
+    #print(img_name)
     img_dir = CFG['img_dir']
     #path = img_dir + img_name
     
@@ -310,7 +327,7 @@ for i,pre in enumerate(predictions):
     pred = le.inverse_transform(top_3)
     pred = [p.split('/',1)[1] for p in pred]
     
-    if any (infer['label'][i].split('/',1)[0] == pre_val.split('/',1)[0] for pre_val in pred):
+    if any (infer['label'][i].split('/',1) == pre_val.split('/',1) for pre_val in pred):
         pred_count = pred_count +1
        # print('0')
     label = infer['label'][i]
