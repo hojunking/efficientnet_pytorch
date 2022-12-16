@@ -94,7 +94,7 @@ def get_inference_transforms():
             A.RandomResizedCrop(
             height=CFG['img_size'], 
             width=CFG['img_size'], 
-            scale=(4.80, 9.90),
+            scale=(0.60, 0.64),
             ratio=(0.90, 1.10),
             always_apply=True
             ),
@@ -154,7 +154,7 @@ def inference(model, data_loader, device):
 ########################## main ##################################
 ##########################      ##################################
 #model_dir = 'tf_efficientnet_b4_ns_ALL/tf_efficientnet_b4_ns_2'
-model_dir = 'models/1214'
+model_dir = 'models/1214_HK_01'
 
 
 
