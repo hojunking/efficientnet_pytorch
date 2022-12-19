@@ -153,8 +153,8 @@ def inference(model, data_loader, device):
 
 ########################## main ##################################
 ##########################      ##################################
-#model_dir = 'tf_efficientnet_b4_ns_ALL/tf_efficientnet_b4_ns_2'
-model_dir = 'models/1214_HK_01'
+model_dir = 'tf_efficientnet_b4_ns_HK/tf_efficientnet_b4_ns_0'
+#model_dir = 'models/1214_HK_01'
 
 
 
